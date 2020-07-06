@@ -1,5 +1,5 @@
 <?php
-$servername = "https://amic3server.ngrok.io/";
+$servername = "amic3server.ngrok.io";
 $username = "root";
 $password = "keng4051";
 $dbname = "amic3";
