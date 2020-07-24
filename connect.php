@@ -1,5 +1,5 @@
 <?php
-else echo"Success";
+echo"Success";
 $webURL="https://amic3server.ngrok.io/";
 
 ?>
