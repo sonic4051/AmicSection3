@@ -1,6 +1,6 @@
 <?php 
 
-$url="https://ift.tt/2C587IT";
+$url="http://goo.gl/fbsfS";
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_HEADER, true);
