@@ -16,13 +16,12 @@
 	curl_setopt($ch, CURLOPT_HEADER, true);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
 	$a = curl_exec($ch); // $a will contain all headers
 	$url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 //end of change	
 	$messages = [];
 	$messages['replyToken'] = $replyToken;
-	$messages['messages'][0] = getFormatTextMessage($a);
+	$messages['messages'][0] = getFormatTextMessage($url);
 
 	$encodeJson = json_encode($messages);
 
