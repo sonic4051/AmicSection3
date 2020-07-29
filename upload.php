@@ -20,7 +20,7 @@
 			'SourceFile' => $temp_file_location			
 		]);
 		//var_dump($result);
-		if($result==true) echo"อับโหลดสำเร็จ";
+		if($result!="") echo"อับโหลดสำเร็จ";
 	}
 ?>
 
