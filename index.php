@@ -36,7 +36,7 @@
         replyMsg($arrayHeader,$arrayPostData);
     }
     #ตัวอย่าง Message Type "Image"
-    else if($message == "รูป"){
+    else if($message == "รูป2"){
         $image_url = "https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/test.PNG";
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "image";
@@ -45,7 +45,7 @@
         replyMsg($arrayHeader,$arrayPostData);
     }
 	#ตัวอย่าง Message Type "Image"
-    else if($message == "รูป2"){
+    else if($message == "รูป"){
         $image_url = "https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/n.jpg";
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "image";
