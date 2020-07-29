@@ -24,7 +24,7 @@ $download_name = 'n.jpg';
 
 /**** other variables that are automatically set ****/
 // bucket host name
-$host_name = $bucket_name . '.s3-ap-southeast-1.amazonaws.com';
+$host_name = $bucket_name . '.s3.amazonaws.com';
 
 // service name for S3
 $aws_service_name = 's3';
@@ -135,10 +135,8 @@ $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 if($http_code != 200) 
 	exit('Error : Failed to download file');
 
-$success = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+$success = file_put_contents($download_name, $response);
 if(!$success)
-	?>
-	<img src="<?php echo $success; ?>" />
-	<?php
+	exit('Error : Failed to save file to directory');
 
 ?>
