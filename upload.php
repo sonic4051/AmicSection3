@@ -3,13 +3,13 @@
 require 'vendor/autoload.php';
 use Aws\S3\S3Client;
  
-$bucketName = 'YOUR_BUCKET_NAME';
+$bucketName = 'amic-bot-storage';
 $client = new S3Client([
     'version' => 'latest',
-    'region' => 'YOUR_AWS_REGION',
+    'region' => 'ap-southeast-1',
     'credentials' => [
-        'key'    => 'ACCESS_KEY_ID',
-        'secret' => 'SECRET_ACCESS_KEY'
+        'key'    => 'AKIA4YXAPMXBTXNUKZEB',
+        'secret' => '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'
     ]
 ]); 
 ?>
