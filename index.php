@@ -59,10 +59,10 @@
 		]);
 		// Display the object in the browser.
 		header("Content-Type: {$result['ContentType']}");
-			$image_url = $result['Body'];
+			$image_url = echo $result['Body'];
 		} 
 		catch (S3Exception $e) {
-			$image_url = $e->getMessage(). PHP_EOL;
+			$image_url = echo $e->getMessage(). PHP_EOL;
 		}
 
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
