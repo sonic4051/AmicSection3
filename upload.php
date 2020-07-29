@@ -19,8 +19,7 @@
 			'Key'    => $file_name,
 			'SourceFile' => $temp_file_location			
 		]);
-
-		var_dump($result);
+		//var_dump($result);
 	}
 ?>
 
