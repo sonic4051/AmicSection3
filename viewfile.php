@@ -27,6 +27,6 @@ $keyname = 'n.jpg';
     echo $result['Body'];
 	} 
 	catch (S3Exception $e) {
-		echo $e->getMessage() ."123456". PHP_EOL;
+		echo $e->getMessage();
 	}
 ?>
