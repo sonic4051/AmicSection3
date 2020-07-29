@@ -13,7 +13,7 @@ $client = new S3Client([
     ]
 ]); 
 
-$file_Path = 'item.png';
+$file_Path = 'Item.PNG';
 $key = basename($file_Path);
  
 // Upload a publicly accessible file. The file size and type are determined by the SDK.
