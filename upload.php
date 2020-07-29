@@ -28,4 +28,3 @@
 	<input type="file" name="image" />
 	<input type="submit"/>
 </form>      
-?>
