@@ -132,11 +132,13 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 $response = curl_exec($ch);
 $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-if($http_code == 200) 
-	exit('Done : Failed to download file');
+if($http_code != 200) 
+	exit('Error : Failed to download file');
 
-$success = file_put_contents($download_name, $response);
-if($success)
-	exit('Done : Failed to save file to directory');
+$success = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+if(!$success)
+	?>
+	<img src="<?php echo $success; ?>" />
+	<?php
 
 ?>
