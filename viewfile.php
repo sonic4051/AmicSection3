@@ -24,10 +24,7 @@ $keyname = 'n.jpg';
     ]);
     // Display the object in the browser.
     header("Content-Type: {$result['ContentType']}");
-	//echo $result['Body'];
-	?>
-	<img src="<?php echo $result['Body'];  ?>" alt="Girl in a jacket" width="500" height="500">
-	<?php
+	echo $result['Body'];
 	} 
 	catch (S3Exception $e) {
 		echo $e->getMessage(). PHP_EOL;
