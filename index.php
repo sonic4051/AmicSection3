@@ -1,6 +1,8 @@
 <?php
-    $accessToken = "hiCo5SaKOlgH0Lxjjl3VvpcxFijj2B00ouHm24f62sQ+SrdjTJOgS5AHX8v88fuZJuXHExYi99mAAddQ3qalql3Sw49OdaVxxveCw3voJtTA+3oxUEp22jIUS2qpR6jQTS3N2HZVVUfne5F+ZtwJwAdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
-    
+    require 'vendor/autoload.php';
+	use Aws\S3\S3Client;
+	use Aws\S3\Exception\S3Exception;
+	$accessToken = "hiCo5SaKOlgH0Lxjjl3VvpcxFijj2B00ouHm24f62sQ+SrdjTJOgS5AHX8v88fuZJuXHExYi99mAAddQ3qalql3Sw49OdaVxxveCw3voJtTA+3oxUEp22jIUS2qpR6jQTS3N2HZVVUfne5F+ZtwJwAdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
     $content = file_get_contents('php://input');
     $arrayJson = json_decode($content, true);
     
@@ -36,8 +38,33 @@
         replyMsg($arrayHeader,$arrayPostData);
     }
     #ตัวอย่าง Message Type "Image"
-    else if($message == "รูป2"){
-        $image_url = "https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/test.PNG";
+    else if($message == "รูป"){
+		$bucket = 'amic-bot-storage';
+		$keyname = 'n.jpg';
+
+		$s3 = new Aws\S3\S3Client([
+		'region'  => 'ap-southeast-1',
+		'version' => 'latest',
+		'credentials' => [
+			'key'    => "AKIA4YXAPMXBTXNUKZEB",
+			'secret' => "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",
+			]
+		]);	
+		
+		try {
+		// Get the object.
+		$result = $s3->getObject([
+			'Bucket' => $bucket,
+			'Key'    => $keyname
+		]);
+		// Display the object in the browser.
+		header("Content-Type: {$result['ContentType']}");
+			$image_url = $result['Body'];
+		} 
+		catch (S3Exception $e) {
+			$image_url = $e->getMessage(). PHP_EOL;
+		}
+
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "image";
         $arrayPostData['messages'][0]['originalContentUrl'] = $image_url;
@@ -45,7 +72,7 @@
         replyMsg($arrayHeader,$arrayPostData);
     }
 	#ตัวอย่าง Message Type "Image"
-    else if($message == "รูป"){
+    else if($message == "รูป2"){
         $image_url = "https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/n.jpg";
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "image";
