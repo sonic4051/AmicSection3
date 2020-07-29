@@ -23,10 +23,11 @@ $keyname = 'n.jpg';
         'Key'    => $keyname
     ]);
     // Display the object in the browser.
-    header("Content-Type: {$result['ContentType']}");
-	echo $result['Body'];
+   // header("Content-Type: {$result['ContentType']}");
+	//echo $result['Body'];
+	var_dump($result);
 	} 
-	catch (S3Exception $e) {
-		echo $e->getMessage(). PHP_EOL;
-	}
+	//catch (S3Exception $e) {
+	//	echo $e->getMessage(). PHP_EOL;
+	//}
 ?>
