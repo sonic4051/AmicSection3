@@ -6,6 +6,7 @@ $dbname = "amic_bot_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-if($conn) echo"DONE";
+if(!$conn) echo"NOT DONE";
+else echo"DONE ALL";
 
 ?>
