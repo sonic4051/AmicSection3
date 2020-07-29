@@ -26,7 +26,7 @@ $keyname = 'n.jpg';
     header("Content-Type: {$result['ContentType']}");
 	//echo $result['Body'];
 	?>
-	<img src="<?php echo $result['Body'];  ?>" alt="Girl in a jacket" width="100" height="100">
+	<img src="<?php echo $result['Body'];  ?>" alt="Girl in a jacket" width="500" height="500">
 	<?php
 	} 
 	catch (S3Exception $e) {
