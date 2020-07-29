@@ -6,7 +6,7 @@ use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
 $bucket = 'amic-bot-storage';
-$keyname = 'AKIA4YXAPMXBTXNUKZEB';
+$keyname = 'อ.ไชยปราการ.PNG';
 
 $s3 = new S3Client([
     'version' => 'latest',
