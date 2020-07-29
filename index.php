@@ -1,4 +1,7 @@
 <?php 
+namespace LINE\LINEBot;
+header('Content-Type: text/html; charset=utf-8');
+require_once 'vendor/autoload.php';
 // แปลงข้อความรูปแบบ JSON  ให้อยู่ในโครงสร้างตัวแปร array
 $events = json_decode($content, true);
 if(!is_null($events)){
