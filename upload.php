@@ -19,8 +19,8 @@
 			'Key'    => $file_name,
 			'SourceFile' => $temp_file_location			
 		]);
-		var_dump($result);
-		if($result!="") echo"Done";
+		//var_dump($result);
+		if($result!="") echo"อับโหลดสำเร็จ";
 	}
 ?>
 
