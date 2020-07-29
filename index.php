@@ -9,7 +9,7 @@
 	$replyToken = $deCode['events'][0]['replyToken'];
 	$userId = $deCode['events'][0]['source']['userId'];
 	$text = $deCode['events'][0]['message']['text'];
-
+//real url change
 	$url=$text;
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
@@ -19,10 +19,10 @@
 
 	$a = curl_exec($ch); // $a will contain all headers
 	$url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
-	
+//end of change	
 	$messages = [];
 	$messages['replyToken'] = $replyToken;
-	$messages['messages'][0] = getFormatTextMessage($url);
+	$messages['messages'][0] = getFormatTextMessage($a);
 
 	$encodeJson = json_encode($messages);
 
