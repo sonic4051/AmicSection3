@@ -1,26 +1,71 @@
 <?php 
+################################################################################
+########################## AMIC CHATBOT BY SONIC4051############################
+################################################################################
 namespace LINE\LINEBot;
 header('Content-Type: text/html; charset=utf-8');
 require_once 'vendor/autoload.php';
-$accessToken = "i01ExIyKX9/iOZ/z+sZVY/yxfx3QIGuxSAKzNM29JmBlk2ZK1aO9gLQt9uf3kJl5MpHwv0BqWkV4/55N4BSjxs9NaRLM+6yWLplwWZTTwylAJxy9djgppCsbYQSJeRvs7hWU5hCov1JxZkx1ZXIVVwdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
-$channelSecret = "1e3afa9e6459fba7b178fa4e940762c4";
-//file_put_contents('log.txt', file_get_contents('php://input') . PHP_EOL, FILE_APPEND);
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($accessToken);
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-$content = file_get_contents('php://input');
-// แปลงข้อความรูปแบบ JSON  ให้อยู่ในโครงสร้างตัวแปร array
-$events = json_decode($content, true);
-if(!is_null($events)){
-    // ถ้ามีค่า สร้างตัวแปรเก็บ replyToken ไว้ใช้งาน
-    $replyToken = $events['events'][0]['replyToken'];
-    $typeMessage = $events['events'][0]['message']['type'];
-    $userMessage = $events['events'][0]['message']['text'];
-    $userMessage = strtolower($userMessage);
+require_once('connect.php');
+require_once('bot_settings.php');
+use \Rollbar\Rollbar;
+use \Rollbar\Payload\Level;
+################################################################################
+########################### namespace marcuscode ###############################
+################################################################################
+use LINE\LINEBot;
+use LINE\LINEBot\HTTPClient;
+use LINE\LINEBot\HTTPClient\CurlHTTPClient;
+//use LINE\LINEBot\Event;
+//use LINE\LINEBot\Event\BaseEvent;
+//use LINE\LINEBot\Event\MessageEvent;
+use LINE\LINEBot\MessageBuilder;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
+use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
+use LINE\LINEBot\MessageBuilder\LocationMessageBuilder;
+use LINE\LINEBot\MessageBuilder\AudioMessageBuilder;
+use LINE\LINEBot\MessageBuilder\VideoMessageBuilder;
+use LINE\LINEBot\ImagemapActionBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\AreaBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder ;
+use LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder;
+use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
+use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
+use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
+use LINE\LINEBot\TemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\DatetimePickerTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuilder;
+################################################################################
+############################ รับข้อความจากผู้ใช้ ###################################
+################################################################################
+$PostbackData = $arrayJson['events'][0]['postback']['data'];
+$Message = $arrayJson['events'][0]['message']['text'];
+$MessageID = $arrayJson['events'][0]['message']['id'];
+$UserID  = $arrayJson['events'][0]['source']['userId'];
+$MessageSendType = $arrayJson['events'][0]['source']['type'];
+if ($MessageSendType=="group") {
+  $GroupID = $arrayJson['events'][0]['source']['groupId'];
+}
+$replyToken = $arrayJson['events'][0]['replyToken'];
+if((isset($PostbackData))) {
+  $typeMessage = $arrayJson['events'][0]['type'];
+} else {
+  $typeMessage = $arrayJson['events'][0]['message']['type'];
+}
     switch ($typeMessage){
         case 'text':
-            switch ($userMessage) {
+            switch ($Message) {
                 case "t":
-				
 					$url="https://ift.tt/393BoPZ";
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $url);
@@ -37,67 +82,6 @@ if(!is_null($events)){
                     $picThumbnail = 'https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/test.PNG';
                     $replyData = new ImageMessageBuilder($picFullSize,$picThumbnail);
                     break;
-                case "v":
-                    $picThumbnail = 'https://www.mywebsite.com/imgsrc/photos/f/sampleimage/240';
-                    $videoUrl = "https://www.mywebsite.com/simplevideo.mp4";                
-                    $replyData = new VideoMessageBuilder($videoUrl,$picThumbnail);
-                    break;
-                case "a":
-                    $audioUrl = "https://www.mywebsite.com/simpleaudio.mp3";
-                    $replyData = new AudioMessageBuilder($audioUrl,27000);
-                    break;
-                case "l":
-                    $placeName = "ที่ตั้งร้าน";
-                    $placeAddress = "แขวง พลับพลา เขต วังทองหลาง กรุงเทพมหานคร ประเทศไทย";
-                    $latitude = 13.780401863217657;
-                    $longitude = 100.61141967773438;
-                    $replyData = new LocationMessageBuilder($placeName, $placeAddress, $latitude ,$longitude);              
-                    break;
-                case "s":
-                    $stickerID = 22;
-                    $packageID = 2;
-                    $replyData = new StickerMessageBuilder($packageID,$stickerID);
-                    break;      
-                case "im":
-                    $imageMapUrl = 'https://www.mywebsite.com/imgsrc/photos/w/sampleimagemap';
-                    $replyData = new ImagemapMessageBuilder(
-                        $imageMapUrl,
-                        'This is Title',
-                        new BaseSizeBuilder(699,1040),
-                        array(
-                            new ImagemapMessageActionBuilder(
-                                'test image map',
-                                new AreaBuilder(0,0,520,699)
-                                ),
-                            new ImagemapUriActionBuilder(
-                                'http://www.ninenik.com',
-                                new AreaBuilder(520,0,520,699)
-                                )
-                        )); 
-                    break;          
-                case "tm":
-                    $replyData = new TemplateMessageBuilder('Confirm Template',
-                        new ConfirmTemplateBuilder(
-                                'Confirm template builder',
-                                array(
-                                    new MessageTemplateActionBuilder(
-                                        'Yes',
-                                        'Text Yes'
-                                    ),
-                                    new MessageTemplateActionBuilder(
-                                        'No',
-                                        'Text NO'
-                                    )
-                                )
-                        )
-                    );
-                    break;                                                                                                                          
-                default:
-                    $textReplyMessage = " คุณไม่ได้พิมพ์ ค่า ตามที่กำหนด";
-                    $replyData = new TextMessageBuilder($textReplyMessage);         
-                    break;                                      
-            }
-            break;
         default:
             $textReplyMessage = json_encode($events);
             $replyData = new TextMessageBuilder($textReplyMessage);         
