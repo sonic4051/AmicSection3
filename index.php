@@ -10,9 +10,19 @@
 	$userId = $deCode['events'][0]['source']['userId'];
 	$text = $deCode['events'][0]['message']['text'];
 
+	$url=$text;
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, true);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	$a = curl_exec($ch); // $a will contain all headers
+	$url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+	
 	$messages = [];
 	$messages['replyToken'] = $replyToken;
-	$messages['messages'][0] = getFormatTextMessage("เอ้ย ถามอะไรก็ตอบได้");
+	$messages['messages'][0] = getFormatTextMessage($url);
 
 	$encodeJson = json_encode($messages);
 
