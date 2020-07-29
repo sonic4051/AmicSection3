@@ -16,7 +16,7 @@ $keyname = 'n.jpg';
 			]
 		]);	
 		
-	try {
+
     // Get the object.
     $result = $s3->getObject([
         'Bucket' => $bucket,
@@ -25,7 +25,7 @@ $keyname = 'n.jpg';
     // Display the object in the browser.
    // header("Content-Type: {$result['ContentType']}");
 	//echo $result['Body'];
-	} 
+
 	var_dump($result);
 	//catch (S3Exception $e) {
 	//	echo $e->getMessage(). PHP_EOL;
