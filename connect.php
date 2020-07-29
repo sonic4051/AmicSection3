@@ -1,8 +1,8 @@
 <?php
-$servername = "amic3db.chksgzqjwzak.us-east-2.rds.amazonaws.com:3306";
-$username = "sonic4051";
+$servername = "amic-bot-db.cilhjtqitmxb.ap-southeast-1.rds.amazonaws.com";
+$username = "sonicboom";
 $password = "keng4051";
-$dbname = "amic3";
+$dbname = "amic_bot_db";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
