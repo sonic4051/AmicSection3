@@ -224,7 +224,7 @@ if($Passport=="true") {
                                     ))),
                                     );
                                     //$imageUrl = $webURL.'picture/amic.jpg';
-									$imageUrl = 'https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/picture/amic.jpg'
+									$imageUrl = 'https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/picture/amic.jpg';
                                     $textMessageBuilder = new TemplateMessageBuilder('รับคำสั่ง',
                                     new ButtonTemplateBuilder(
                                       $Reporter.'ฯ ต้องการให้ช่วยอะไรครับ', // กำหนดหัวเรื่อง
