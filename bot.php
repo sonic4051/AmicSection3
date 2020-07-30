@@ -4,8 +4,6 @@
 ################################################################################
 namespace LINE\LINEBot;
 header('Content-Type: text/html; charset=utf-8');
-require_once 'vendor/autoload.php';
-require_once('connect.php');
 require_once('bot_settings.php');
 use \Rollbar\Rollbar;
 use \Rollbar\Payload\Level;
