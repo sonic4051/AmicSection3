@@ -8,6 +8,8 @@ $content = file_get_contents('php://input');
 $arrayJson = json_decode($content, true);
 $SaveTopic="";
 $arrayHeader = array();
+$webURL = "https://amic3.herokuapp.com/";
+$web-Storage-URL = "https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/";
 $arrayHeader[] = "Content-Type: application/json";
 $arrayHeader[] = "Authorization: Bearer {$accessToken}";
 date_default_timezone_set("Asia/Bangkok");
