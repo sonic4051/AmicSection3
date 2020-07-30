@@ -5,7 +5,7 @@ use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 
 $bucket = 'amic-bot-storage';
-$keyname = '1.PNG';
+$keyname = 'n.jpg';
 
 	$s3 = new Aws\S3\S3Client([
 		'region'  => 'ap-southeast-1',
