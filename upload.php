@@ -17,7 +17,8 @@
 		$result = $s3->putObject([
 			'Bucket' => 'amic-bot-storage',
 			'Key'    => $file_name,
-			'SourceFile' => $temp_file_location			
+			'SourceFile' => $temp_file_location,	
+			'ACL' => 'public-read',
 		]);
 		//var_dump($result);
 		echo $result['statusCode'];
