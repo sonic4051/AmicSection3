@@ -187,7 +187,7 @@ if($Passport=="true") {
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);
                                         //แสดงรูป
                                         for ($i = 0; $i < $piccount; $i++) {
-                                            $url = $webURL.$pic[$i];
+                                            $url = $web_Storage_URL.$pic[$i];
                                             $arr_replyData[] = new ImageMessageBuilder($url,$url);
                                         }
                                         $multiMessage    = new MultiMessageBuilder;
