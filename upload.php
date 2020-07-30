@@ -20,8 +20,8 @@
 			'SourceFile' => $temp_file_location,	
 			'ACL' => 'public-read',
 		]);
-		//var_dump($result);
-		echo $result['statusCode'];
+		var_dump($result);
+		//echo $result["statusCode"];
 	}
 ?>
 
