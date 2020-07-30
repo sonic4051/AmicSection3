@@ -19,8 +19,8 @@
 			'Key'    => $file_name,
 			'SourceFile' => $temp_file_location			
 		]);
-		//var_dump($result);
-		echo $result['body'];
+		var_dump($result);
+		//echo $result['body'];
 	}
 ?>
 
