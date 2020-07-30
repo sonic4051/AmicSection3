@@ -1,7 +1,7 @@
 {
 
     "require": {
-        "aws/aws-sdk-php": "^3.147",
+		"aws/aws-sdk-php": "^3.147",
         "linecorp/line-bot-sdk": "^4.5"
     }
 }
