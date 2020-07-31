@@ -9,8 +9,8 @@
 			'region'  => 'ap-southeast-1',
 			'version' => 'latest',
 			'credentials' => [
-				'key'    => "AKIA4YXAPMXBTXNUKZEB",
-				'secret' => "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",
+				'key'    => "AKIA4YXAPMXBSJCZDMQ4",
+				'secret' => "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",
 			]
 		]);		
 
