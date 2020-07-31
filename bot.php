@@ -4,8 +4,6 @@
 ################################################################################
 namespace LINE\LINEBot;
 header('Content-Type: text/html; charset=utf-8');
-require_once 'vendor/autoload.php';
-require_once('connect.php');
 require_once('bot_settings.php');
 use \Rollbar\Rollbar;
 use \Rollbar\Payload\Level;
@@ -187,7 +185,7 @@ if($Passport=="true") {
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);
                                         //แสดงรูป
                                         for ($i = 0; $i < $piccount; $i++) {
-                                            $url = $webURL.$pic[$i];
+                                            $url = $web_Storage_URL.$pic[$i];
                                             $arr_replyData[] = new ImageMessageBuilder($url,$url);
                                         }
                                         $multiMessage    = new MultiMessageBuilder;
@@ -225,7 +223,8 @@ if($Passport=="true") {
                                     'action'=>'posernal',
                                     ))),
                                     );
-                                    $imageUrl = $webURL.'picture/amic.jpg';
+                                    $imageUrl = $web_Storage_URL.'picture/amic.jpg';
+									//$imageUrl = 'https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/picture/amic.jpg';
                                     $textMessageBuilder = new TemplateMessageBuilder('รับคำสั่ง',
                                     new ButtonTemplateBuilder(
                                       $Reporter.'ฯ ต้องการให้ช่วยอะไรครับ', // กำหนดหัวเรื่อง

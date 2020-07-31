@@ -37,43 +37,9 @@
         $arrayPostData['messages'][0]['stickerId'] = "46";
         replyMsg($arrayHeader,$arrayPostData);
     }
-    #ตัวอย่าง Message Type "Image"
-    else if($message == "รูป"){
-		$bucket = 'amic-bot-storage';
-		$keyname = 'n.jpg';
-
-		$s3 = new Aws\S3\S3Client([
-		'region'  => 'ap-southeast-1',
-		'version' => 'latest',
-		'credentials' => [
-			'key'    => "AKIA4YXAPMXBTXNUKZEB",
-			'secret' => "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",
-			]
-		]);	
-		
-		try {
-		// Get the object.
-		$result = $s3->getObject([
-			'Bucket' => $bucket,
-			'Key'    => $keyname
-		]);
-		// Display the object in the browser.
-		header("Content-Type: {$result['ContentType']}");
-			$image_url =  $result['Body'];
-		} 
-		catch (S3Exception $e) {
-			$image_url =  $e->getMessage(). PHP_EOL;
-		}
-
-        $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-        $arrayPostData['messages'][0]['type'] = "image";
-        $arrayPostData['messages'][0]['originalContentUrl'] = $image_url;
-        $arrayPostData['messages'][0]['previewImageUrl'] = $image_url;
-        replyMsg($arrayHeader,$arrayPostData);
-    }
 	#ตัวอย่าง Message Type "Image"
-    else if($message == "รูป2"){
-        $image_url = "https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/n.jpg";
+    else if($message == "รูป"){
+        $image_url = "https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/1.PNG";
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "image";
         $arrayPostData['messages'][0]['originalContentUrl'] = $image_url;
