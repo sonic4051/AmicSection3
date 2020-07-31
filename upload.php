@@ -21,7 +21,7 @@
 			'ACL' => 'public-read',
 		]);
 		//var_dump($result);
-		//echo $result["@metadata"]["statusCode"];
+		echo $result["@metadata"]["statusCode"];
 	}
 ?>
 
