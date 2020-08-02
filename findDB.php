@@ -14,8 +14,7 @@ if(isset($_POST['submit']))
         while($row = $result->fetch_assoc()) {
             if (strpos($row["NewsContent"],$FindWord)!==false) {
                 $countid = $countid+1;
-                $ContentData=$ContentData.$row["NewsDate"]." [".$row["News_id"]."] => ".$row["NewsHadline"]."\n";
-				echo"<br>";
+                $ContentData=$ContentData.$row["NewsDate"]." [".$row["News_id"]."] => ".$row["NewsHadline"]."\n".?><br><?php;
             }
 		}	
 	}	
