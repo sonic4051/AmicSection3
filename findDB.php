@@ -9,7 +9,15 @@ if(isset($_POST['submit']))
 	$FindWord = $_POST['findID'];
 	$sql = "SELECT * FROM news ORDER BY News_id DESC";
     $result = $conn->query($sql);
-    
+	
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            if (strpos($row["NewsContent"],$FindWord)!==false) {
+                $countid = $countid+1;
+                $ContentData=$ContentData.$row["NewsDate"]." [".$row["News_id"]."] => ".$row["NewsHadline"]."\n";
+            }
+		}	
+	}	
 	echo $ContentData;
 }
 ?>
