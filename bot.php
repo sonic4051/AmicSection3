@@ -179,7 +179,7 @@ if($Passport=="true") {
                                           //$EditContent = $cutstr."\n (".$LinkNews.")";
                                           //$ReplyData = $EditContent;
 										  $cutstr = substr($ReplyData1,0,100);
-										  $ReplyData = $countStr;
+										  $ReplyData = $cutstr;
                                         } else {
                                             $ReplyData = $ReplyData1;
 											//$ReplyData = $countStr;
