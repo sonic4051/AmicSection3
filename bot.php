@@ -178,7 +178,7 @@ if($Passport=="true") {
                                           //$cutstr = mb_strimwidth($ReplyData1, 0,1500, "...", "UTF-8"); //ตัดคำให้เหลือ 1500
                                           //$EditContent = $cutstr."\n (".$LinkNews.")";
                                           //$ReplyData = $EditContent;
-										  $cutstr = substr($ReplyData1,0,100);
+										  $cutstr = substr($ReplyData1,0,1800);
 										  $ReplyData = $cutstr;
                                         } else {
                                             $ReplyData = $ReplyData1;
