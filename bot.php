@@ -167,7 +167,7 @@ if($Passport=="true") {
                                         $arr_replyData = array();
                                         $ReplyData1 ="                 [ข่าวระหัสที่ ".$Command[1]."]\n----------------------------------------------------\n"."[เรื่อง] :: ".$NewHeader."\n[โดย] :: ".$NewReporter."ฯ".
                                         "\n[รายงาน] :: ".$Newdate."\n----------------------------------------------------\n - ".$NewContent;
-                                        $countStr = utf8_strlen($ReplyData1);
+                                        $countStr = strlen($ReplyData1);
                                         if ($countStr>1800) {
                                           #################################################################
                                           //$strFileName = "floderfile/".$Command[1].".txt";
@@ -178,7 +178,7 @@ if($Passport=="true") {
                                           //$cutstr = mb_strimwidth($ReplyData1, 0,1500, "...", "UTF-8"); //ตัดคำให้เหลือ 1500
                                           //$EditContent = $cutstr."\n (".$LinkNews.")";
                                           //$ReplyData = $EditContent;
-										  $cutstr = substr($ReplyData1,0,1000);
+										  $cutstr = substr($ReplyData1,0,1800);
 										  $ReplyData = $cutstr;
                                         } else {
                                             $ReplyData = $ReplyData1;
