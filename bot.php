@@ -72,7 +72,7 @@ foreach($Tags as $key => $value) {
    }
 }
 ################################################################################
-####################### ตรวจสอบสิทธิ์การใช้งานของ user #############################
+################################################ ตรวจสอบสิทธิ์การใช้งานของ user #############################
 ################################################################################
 $sql = "SELECT * FROM userid WHERE userlinekey='$UserID'";
 $result = $conn->query($sql);
@@ -88,33 +88,31 @@ if($result->num_rows > 0) {
   $Passport = "false";
  }
 ################################################################################
-################################### เก็บ Log file################################
+###################################################### เก็บ Log file################################
 ################################################################################
-$strFileName = "log.txt";
-$objFopen = fopen($strFileName, 'a');
-if (isset($Reporter)) {
-  if (isset($GroupID)) {
-      $strText1 = $Ndate." , ".$Ntime." || ".$Reporter." [คุยในกลุ่ม] >>> ".$Message."\n";
-  }else {
-      $strText1 = $Ndate." , ".$Ntime." || ".$Reporter." [คุยส่วนตัว] >>> ".$Message."\n";
-  }
-}else {
-  if (isset($GroupID)) {
-      $strText1 = $Ndate." , ".$Ntime." || ไม่ได้ลงทะเบียน(".$UserID.") [คุยในกลุ่ม] >>> ".$Message."\n";
-  }else {
-      $strText1 = $Ndate." , ".$Ntime." || ไม่ได้ลงทะเบียน(".$UserID.") [คุยส่วนตัว] >>> ".$Message."\n";
-  }
-}
-fwrite($objFopen, $strText1);
+//$strFileName = "log.txt";
+//$objFopen = fopen($strFileName, 'a');
+//if (isset($Reporter)) {
+//  if (isset($GroupID)) {
+//      $strText1 = $Ndate." , ".$Ntime." || ".$Reporter." [คุยในกลุ่ม] >>> ".$Message."\n";
+//  }else {
+//      $strText1 = $Ndate." , ".$Ntime." || ".$Reporter." [คุยส่วนตัว] >>> ".$Message."\n";
+//  }
+//}else {
+//  if (isset($GroupID)) {
+//      $strText1 = $Ndate." , ".$Ntime." || ไม่ได้ลงทะเบียน(".$UserID.") [คุยในกลุ่ม] >>> ".$Message."\n";
+//  }else {
+//      $strText1 = $Ndate." , ".$Ntime." || ไม่ได้ลงทะเบียน(".$UserID.") [คุยส่วนตัว] >>> ".$Message."\n";
+//  }
+//}
+//fwrite($objFopen, $strText1);
 ################################################################################
-################################### เริ่มโปรแกรม ##################################
+####################################################################### เริ่มโปรแกรม ##################################
 ################################################################################
 if($Passport=="true") {
     switch ($typeMessage) {
       case 'text':
-                  if ($Tags[0]=="เบ็ดเตล็ด" or  $Tags[0]=="แรงงานต่างด้าว" or $Tags[0]=="อาชญากรรม"
-                  or $Tags[0]=="การเมือง" or $Tags[0]=="ยาเสพติด" or $Tags[0]=="อาวุธสงคราม"
-                  or $Tags[0]=="ศาสนา" or $Tags[0]=="ชนกลุ่มน้อยในประเทศ" or $Tags[0]=="กำลังฝ่ายตรงข้าม") {
+                  if ($Tags[0]=="ข่าวด่วน") {
                        if (isset($Tags[1]) && isset($Tags[2])) {
                           $sql="INSERT INTO news (NewsHadline, NewsContent, NewsDate, NewsTime, NewsType, NewsReporter)
                           VALUES ('$Tags[1]','$AllContent','$Ndate','$Ntime','$Tags[0]','$UserID')";
@@ -195,7 +193,7 @@ if($Passport=="true") {
                                     $conn->close();
                                    }
                      case "เมนูคำสั่ง" :
-                                    $sql="UPDATE LastChat SET LastKey='$UserID', LastGroup='', DateStrat='', DateEnd=''
+                                    $sql="UPDATE lastchat SET LastKey='$UserID', LastGroup='', DateStrat='', DateEnd=''
                                     WHERE LastID='1'";
                                     $result2 = $conn->query($sql); //โฟกัสที่คนสั่งงาน
                                     $actionBuilder = array(
@@ -324,268 +322,7 @@ if($Passport=="true") {
                                   $textMessageBuilder = new TextMessageBuilder($ReplyData);
                                   $conn->close();
                                   break;
-                     case "ค้นหาผลซักถาม" :
-                                      if (isset($Command[1]) and $Command[1]!='') {
-                                          $ReplyData="-----------------------------------------------------------\n";
-                                          $ReplyData=$ReplyData."                 ค้นหาผลการซักถาม\n";
-                                          $ReplyData=$ReplyData."                    คำว่า ".$Command[1]."\n";
-                                          $countidSR = 0;
-                                          $sqlSR = "SELECT * FROM filedata";
-                                          $resultSR = $conn->query($sqlSR);
-                                          if ($resultSR->num_rows > 0) {
-                                          while($rowSR = $resultSR->fetch_assoc()) {
-                                                if ((strpos($rowSR["fileName"],$Command[1])!==false) && $rowSR["filegroup"]=="file1") {
-                                                    $countidSR = $countidSR+1;
-                                                    $ContentData=$ContentData.$rowSR["fileId"]." => ".$rowSR["fileName"]."\n";
-                                                    }
-                                                }
-                                              }
-                                          if ($countidSR>0) {
-                                              $ReplyData=$ReplyData."                  พบทั้งหมด ".$countidSR." ฉบับ\n";
-                                              $ReplyData=$ReplyData."-----------------------------------------------------------\n";
-                                              $ReplyData=$ReplyData."   ID                       ผลซักถาม\n";
-                                              $ReplyData=$ReplyData.$ContentData;
-                                              $countSR = utf8_strlen($ReplyData);
-                                              }else {
-                                                $ReplyData=$ReplyData."                  พบทั้งหมด ".$countidSR." ฉบับ\n";
-                                                $ReplyData=$ReplyData."-----------------------------------------------------------\n";
-                                              }
-                                          $LinkNews = $webURL."readfileheader.php?word=".$Command[1]."&type=1&count=".$countidSR;
-                                          if ($countSR>1800) {
-                                             #################################################################
-                                             $strFileName = "floderfile/file".$countidSR.".txt";
-                                             $objFopen = fopen($strFileName, 'w');
-                                             $strText1 = $Command[1];
-                                             fwrite($objFopen, $strText1);
-                                             #################################################################
-                                             $cutstr = mb_strimwidth($ReplyData, 0,1800, "...", "UTF-8"); //ตัดคำให้เหลือ 1800
-                                             $EditContent = $cutstr."\n( ข้อมูลเพิ่มเติม ==> ".$LinkNews." )";
-                                             $ReplyData = $EditContent;
-                                           }} else {
-                                             $ReplyData = "รูปแบบการกรอกข้อมูลไม่ถูกต้อง";
-                                           }
-                                             $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                             $conn->close();
-                                             break;
-                     case "ค้นหาประวัติบุคคล" :
-                                     if (isset($Command[1]) and $Command[1]!='') {
-                                         $ReplyData="-----------------------------------------------------------\n";
-                                         $ReplyData=$ReplyData."                  ค้นหาประวัติบุคคล\n";
-                                         $ReplyData=$ReplyData."                    คำว่า ".$Command[1]."\n";
-                                         $countidSR = 0;
-                                         $sqlSR = "SELECT * FROM filedata";
-                                         $resultSR = $conn->query($sqlSR);
-                                         if ($resultSR->num_rows > 0) {
-                                         while($rowSR = $resultSR->fetch_assoc()) {
-                                               if ((strpos($rowSR["fileName"],$Command[1])!==false) && $rowSR["filegroup"]=="file2") {
-                                                   $countidSR = $countidSR+1;
-                                                   $ContentData=$ContentData.$rowSR["fileId"]." => ".$rowSR["fileName"]."\n";
-                                                   }
-                                               }
-                                             }
-                                         if ($countidSR>0) {
-                                             $ReplyData=$ReplyData."                  พบทั้งหมด ".$countidSR." ฉบับ\n";
-                                             $ReplyData=$ReplyData."-----------------------------------------------------------\n";
-                                             $ReplyData=$ReplyData."   ID                       ประวัติบุคคล\n";
-                                             $ReplyData=$ReplyData.$ContentData;
-                                             $countSR = utf8_strlen($ReplyData);
-                                           }else {
-                                             $ReplyData=$ReplyData."                  พบทั้งหมด ".$countidSR." ฉบับ\n";
-                                             $ReplyData=$ReplyData."-----------------------------------------------------------\n";
-                                           }
-                                         $LinkNews = $webURL."readfileheader.php?word=".$Command[1]."&type=2&count=".$countidSR;
-                                         if ($countSR>1800) {
-                                            #################################################################
-                                            $strFileName = "floderfile/pos".$countidSR.".txt";
-                                            $objFopen = fopen($strFileName, 'w');
-                                            $strText1 = $Command[1];
-                                            fwrite($objFopen, $strText1);
-                                            #################################################################
-                                            $cutstr = mb_strimwidth($ReplyData, 0,1800, "...", "UTF-8"); //ตัดคำให้เหลือ 1800
-                                            $EditContent = $cutstr."\n( ข้อมูลเพิ่มเติม ==> ".$LinkNews." )";
-                                            $ReplyData = $EditContent;
-                                          }} else {
-                                            $ReplyData = "รูปแบบการกรอกข้อมูลไม่ถูกต้อง";
-                                          }
-                                            $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                            $conn->close();
-                                            break;
-                     case "ค้นหาเฉพาะกรณี" :
-                                    if (isset($Command[1]) and $Command[1]!='') {
-                                        $ReplyData="-----------------------------------------------------------\n";
-                                        $ReplyData=$ReplyData."                  ค้นหาเฉพาะกรณี\n";
-                                        $ReplyData=$ReplyData."                    คำว่า ".$Command[1]."\n";
-                                        $countidSR = 0;
-                                        $sqlSR = "SELECT * FROM filedata";
-                                        $resultSR = $conn->query($sqlSR);
-                                        if ($resultSR->num_rows > 0) {
-                                        while($rowSR = $resultSR->fetch_assoc()) {
-                                              if ((strpos($rowSR["fileName"],$Command[1])!==false) && $rowSR["filegroup"]=="file3") {
-                                                  $countidSR = $countidSR+1;
-                                                  $ContentData=$ContentData.$rowSR["fileId"]." => ".$rowSR["fileName"]."\n";
-                                                  }
-                                              }
-                                            }
-                                        if ($countidSR>0) {
-                                            $ReplyData=$ReplyData."                  พบทั้งหมด ".$countidSR." ฉบับ\n";
-                                            $ReplyData=$ReplyData."-----------------------------------------------------------\n";
-                                            $ReplyData=$ReplyData."   ID                       เรื่อง\n";
-                                            $ReplyData=$ReplyData.$ContentData;
-                                            $countSR = utf8_strlen($ReplyData);
-                                          }else {
-                                            $ReplyData=$ReplyData."                  พบทั้งหมด ".$countidSR." ฉบับ\n";
-                                            $ReplyData=$ReplyData."-----------------------------------------------------------\n";
-                                          }
-                                        $LinkNews = $webURL."readfileheader.php?word=".$Command[1]."&type=3&count=".$countidSR;
-                                        if ($countSR>1800) {
-                                           #################################################################
-                                           $strFileName = "floderfile/pos".$countidSR.".txt";
-                                           $objFopen = fopen($strFileName, 'w');
-                                           $strText1 = $Command[1];
-                                           fwrite($objFopen, $strText1);
-                                           #################################################################
-                                           $cutstr = mb_strimwidth($ReplyData, 0,1800, "...", "UTF-8"); //ตัดคำให้เหลือ 1800
-                                           $EditContent = $cutstr."\n( ข้อมูลเพิ่มเติม ==> ".$LinkNews." )";
-                                           $ReplyData = $EditContent;
-                                         }} else {
-                                           $ReplyData = "รูปแบบการกรอกข้อมูลไม่ถูกต้อง";
-                                         }
-                                           $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                           $conn->close();
-                                           break;
-
-                     case "ขอไฟล์" :
-                                     if (isset($Command[1]) && is_numeric($Command[1])) {
-                                       $sql = "SELECT * FROM filedata WHERE fileId = '$Command[1]'";
-                                       $result = $conn->query($sql);
-                                       if ($result->num_rows > 0) {
-                                         while($row = $result->fetch_assoc()) {
-                                           $fileheadline = $row["fileName"];
-                                           $fileLink = $webURL."downloadfile.php?newsid=".$Command[1];
-                                           $filedate = $row["fileDate"];
-                                        }
-                                       $arr_replyData = array();
-                                       $ReplyData1 ="                 [ไฟล์ระหัสที่ ".$Command[1]."]\n----------------------------------------------------\n"."[เรื่อง] :: ".$fileheadline.
-                                       "\n[รายงาน] :: ".$filedate."\n----------------------------------------------------\n - ".$fileLink."\n";
-
-                                         #################################################################
-                                         $strFileName = "floderfile/fd".$Command[1].".txt";
-                                         $objFopen = fopen($strFileName, 'w');
-                                         $strText1 = $Command[1];
-                                         fwrite($objFopen, $strText1);
-                                         ##################################################################
-                                         $ReplyData1 = $ReplyData1."ก๊อปลิ้งค์เพื่อโหลดจากเบราเซอร์ปกติ (เบราเซอร์ของไลน์โหลดไม่ได้)";
-                                         $ReplyData = $ReplyData1;
-                                      } else {
-                                      $ReplyData=" ตรวจสอบไม่ได้";
-                                      }
-                                   $conn->close();
-                                   $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                   break;
-                                  }
-
-                     case "เก็บไฟล์" :
-                                    $keepid= $ReporterKey;
-                                    $cutstr = mb_strimwidth($keepid, 0,10, "", "UTF-8");
-                                    #################################################################
-                                    $strFileName = "floderfile/keep".$cutstr.".txt";
-                                    $objFopen = fopen($strFileName, 'w');
-                                    $strText1 = $keepid;
-                                    fwrite($objFopen, $strText1);
-                                    ##################################################################
-                                    $ReplyData= "เก็บได้ 1 ครั้ง ต่อการของลิ้งค์ 1 ครั้ง\n".$webURL."keepfile.php?newsid=".$cutstr;
-                                    $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                    break;
-
-                     case "ค้นหาเครือข่าย" :
-                                    if (isset($Command[1]) and $Command[1]!='') {
-                                    $ReplyData="-----------------------------------------------------------\n";
-                                    $ReplyData=$ReplyData."                  ค้นหาเครือข่าย\n";
-                                    $ReplyData=$ReplyData."                  คำว่า ".$Command[1]."\n";
-                                    $countidSR = 0;
-                                    $sqlSR = "SELECT * FROM filedata";
-                                    $resultSR = $conn->query($sqlSR);
-                                    if ($resultSR->num_rows > 0) {
-                                      while($rowSR = $resultSR->fetch_assoc()) {
-                                        if ((strpos($rowSR["fileName"],$Command[1])!==false) && $rowSR["filegroup"]=="file4") {
-                                          $countidSR = $countidSR+1;
-                                          $ContentData=$ContentData.$rowSR["fileId"]."     =>     ".$rowSR["fileName"]."\n";
-                                        }
-                                      }
-                                    }
-                                    if ($countidSR>0) {
-                                        $ReplyData=$ReplyData."                  พบทั้งหมด ".$countidSR." เครือข่าย\n";
-                                                               $ReplyData=$ReplyData."-----------------------------------------------------------\n";
-                                                               $ReplyData=$ReplyData."   ID                       เครือข่าย\n";
-                                                               $ReplyData=$ReplyData.$ContentData;
-                                                               $countSR = utf8_strlen($ReplyData);
-                                                             }else {
-                                                                    $ReplyData=$ReplyData."                  พบทั้งหมด ".$countidSR." เครือข่าย\n";
-                                                                    $ReplyData=$ReplyData."-----------------------------------------------------------\n";
-                                                                   }
-                                                               $LinkNews = $webURL."readfileheader.php?word=".$Command[1]."&type=3&count=".$countidSR;
-                                                               if ($countSR>1800) {
-                                                                                #################################################################
-                                                                                $strFileName = "floderfile/pos".$countidSR.".txt";
-                                                                                $objFopen = fopen($strFileName, 'w');
-                                                                                $strText1 = $Command[1];
-                                                                                fwrite($objFopen, $strText1);
-                                                                                #################################################################
-                                                                                $cutstr = mb_strimwidth($ReplyData, 0,1800, "...", "UTF-8"); //ตัดคำให้เหลือ 1800
-                                                                                $EditContent = $cutstr."\n( ข้อมูลเพิ่มเติม ==> ".$LinkNews." )";
-                                                                                $ReplyData = $EditContent;
-                                                                              }
-                                                               } else {
-                                                                       $ReplyData = "รูปแบบการกรอกข้อมูลไม่ถูกต้อง";
-                                                                      }
-                                                               $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                                               $conn->close();
-                                                               break;
-
-                    case "บันทึกเครือข่าย" :
-                         if (isset($Command[1]) && is_dir('./spiderweb/'.$Command[1])) {
-                           $sql="INSERT INTO fileData (fileName, filePath, fileDate, filegroup, fileReportor)
-                           VALUES ('$Command[1]','spiderweb/$Command[1]','$Ndate','file4','$Reporter')";
-                           if ($conn->query($sql) === TRUE) {
-                           ##############################################################################
-                            $ReplyData= "่บันทึกเครือข่าย ".$Command[1]." เรียบร้อย\nผู้บันทึก ".$Reporter;
-                          }else $ReplyData= "ไม่สามารถบันทึกเครือข่าย ".$Command[1]." ได้";
-                         } else {
-                           $ReplyData= "ไม่บันทึก :: ข้อมูลไม่ถูกต้อง";
-                         }
-                         $conn->close();
-                         $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                         break;
-
-                    case "ดูเครือข่าย" :
-                          if (isset($Command[1]) && is_numeric($Command[1])) {
-                          $sql = "SELECT * FROM filedata WHERE fileId = '$Command[1]' && filegroup = 'file4' ";
-                          $result = $conn->query($sql);
-                          if ($result->num_rows > 0) {
-                          while($row = $result->fetch_assoc()) {
-                                                $fileheadline = $row["fileName"];
-                                                $fileLink = $webURL.$row["filePath"];
-                                                $filedate = $row["fileDate"];
-                                             }
-                                            $arr_replyData = array();
-                                            $ReplyData1 ="                 [ูเครือข่ายระหัสที่ ".$Command[1]."]\n----------------------------------------------------\n"."[เครือข่าย] :: ".$fileheadline.
-                                            "\n[บันทึก] :: ".$filedate."\n----------------------------------------------------\n - ".$fileLink."\n";
-
-                          #################################################################
-                          $strFileName = "floderfile/fd".$Command[1].".txt";
-                          $objFopen = fopen($strFileName, 'w');
-                          $strText1 = $Command[1];
-                          fwrite($objFopen, $strText1);
-                          ##################################################################
-                          $ReplyData = $ReplyData1;
-                          } else {
-                            $ReplyData=" ตรวจสอบไม่ได้";
-                          }
-                          $conn->close();
-                          $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                          break;
-                          }
-
+                   
                      default:
                                 break;
 
@@ -632,34 +369,6 @@ if($Passport=="true") {
                           if ($row["LastKey"]==$UserID) {
                              $getCommand = explode("=", $PostbackData);
                              switch ($getCommand[1]) {
-                                    case 'staticNaws'://ดูสกิติ จะเรียกหน้า ดูชุดไหน วันไหนถึงวันไหน
-                                                      $actionBuilder = array(
-                                                      new PostbackTemplateActionBuilder(
-                                                     'ชุด ตข.1', http_build_query(array(
-                                                     'action'=>'CI1',
-                                                      ))),
-                                                      new PostbackTemplateActionBuilder(
-                                                      'ชุด ตข.2', http_build_query(array(
-                                                      'action'=>'CI2',
-                                                      ))),
-                                                      new PostbackTemplateActionBuilder(
-                                                      'ชุด ตข.3', http_build_query(array(
-                                                      'action'=>'CI3',
-                                                      ))),
-                                                      new PostbackTemplateActionBuilder(
-                                                      'ชุด ทกร.', http_build_query(array(
-                                                      'action'=>'CI4',
-                                                      ))),
-                                                      );
-                                                      $imageUrl = $webURL.'picture/amic.jpg';
-                                                      $textMessageBuilder = new TemplateMessageBuilder('เมนูคำสั่ง',
-                                                      new ButtonTemplateBuilder(
-                                                      $Reporter.'ฯ เลือกชุดที่ต้องการ', // กำหนดหัวเรื่อง
-                                                      'เลือกชุดที่ต้องการตรวจสอบสถิติการรายงาน', // กำหนดรายละเอียด
-                                                      $imageUrl, // กำหนด url รุปภาพ
-                                                      $actionBuilder ));
-                                                      $conn->close();
-                                                      break;
                                     case 'findNews'://ค้นหาข่าว
                                                       $actionBuilder = array(
                                                       new PostbackTemplateActionBuilder(
@@ -754,23 +463,6 @@ if($Passport=="true") {
                                                       $conn->close();
                                                       break;
 
-                                    case 'findNews2'://ค้นหาผลซักถาม
-                                                      $ReplyData= "พิมพ์ ค้นหาผลซักถาม (คำค้น)\nเช่น\nค้นหาผลซักถาม ชวน";
-                                                      $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                                      $conn->close();
-                                                      break;
-
-                                    case 'findNews3'://ค้นหาประวัติบุคคล
-                                                      $ReplyData= "พิมพ์ ค้นหาประวัติบุคคล (คำค้น)\nเช่น\nค้นหาประวัติบุคคล ชวน";
-                                                      $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                                      $conn->close();
-                                                      break;
-                                    case 'findNews4'://ค้นหาเฉพาะกรณี
-                                                      $ReplyData= "พิมพ์ ค้นหาเฉพาะกรณี (คำค้น)\nเช่น\nค้นหาเฉพาะกรณี ชวน";
-                                                      $textMessageBuilder = new TextMessageBuilder($ReplyData);
-                                                      $conn->close();
-                                                      break;
-
                                     case 'readNews'://อ่านข่าว
                                                       $ReplyData= "พิมพ์ อ่านข่าว ตามด้วยไอดีข่าวที่ต้องการ\nเช่น ==> อ่านข่าว 150";
                                                       $textMessageBuilder = new TextMessageBuilder($ReplyData);
@@ -781,106 +473,6 @@ if($Passport=="true") {
                                                       $textMessageBuilder = new TextMessageBuilder($ReplyData);
                                                       $conn->close();
                                                       break;
-
-                                  case 'CI1'://สถิติชุด 1
-                                                      $sql4="UPDATE LastChat SET LastGroup='ตข.1' WHERE LastID='1'";
-                                                      $result4 = $conn->query($sql4);
-                                                      $actionBuilder = array(
-                                                      new DatetimePickerTemplateActionBuilder(
-                                                      'เลือกวันเริ่มต้น', // ข้อความแสดงในปุ่ม
-                                                      http_build_query(array(
-                                                      'action'=>'startDate',
-                                                      )), // ข้อมูลที่จะส่งไปใน webhook ผ่าน postback event
-                                                      'date', // date | time | datetime รูปแบบข้อมูลที่จะส่ง ในที่นี้ใช้ datatime
-                                                      date("Y-m-d"), // วันที่ เวลา ค่าเริ่มต้นที่ถูกเลือก
-                                                      date("Y-m-d"), //วันที่ เวลา มากสุดที่เลือกได้
-                                                      date("Y-m-d",strtotime("-3650 day")) //วันที่ เวลา น้อยสุดที่เลือกได้
-                                                      ),
-                                                      );
-                                                      $imageUrl = $webURL.'picture/amic.jpg';
-                                                      $textMessageBuilder = new TemplateMessageBuilder('ตข.1',
-                                                      new ButtonTemplateBuilder(
-                                                      $Reporter.'ฯ เลือกวันเริ่มต้น', // กำหนดหัวเรื่อง
-                                                      'เลือกวันที่ต้องการตรวจสอบสถิติการรายงาน', // กำหนดรายละเอียด
-                                                      $imageUrl, // กำหนด url รุปภาพ
-                                                      $actionBuilder ));
-                                                      $conn->close();
-                                                      break;
-
-                                 case 'CI2'://สถิติชุด 2
-                                                   $sql4="UPDATE LastChat SET LastGroup='ตข.2' WHERE LastID='1'";
-                                                   $result4 = $conn->query($sql4);
-                                                   $actionBuilder = array(
-                                                   new DatetimePickerTemplateActionBuilder(
-                                                   'เลือกวันเริ่มต้น', // ข้อความแสดงในปุ่ม
-                                                   http_build_query(array(
-                                                   'action'=>'startDate',
-                                                   )), // ข้อมูลที่จะส่งไปใน webhook ผ่าน postback event
-                                                   'date', // date | time | datetime รูปแบบข้อมูลที่จะส่ง ในที่นี้ใช้ datatime
-                                                   date("Y-m-d"), // วันที่ เวลา ค่าเริ่มต้นที่ถูกเลือก
-                                                   date("Y-m-d"), //วันที่ เวลา มากสุดที่เลือกได้
-                                                   date("Y-m-d",strtotime("-3650 day")) //วันที่ เวลา น้อยสุดที่เลือกได้
-                                                   ),
-                                                   );
-                                                   $imageUrl = $webURL.'picture/amic.jpg';
-                                                   $textMessageBuilder = new TemplateMessageBuilder('ตข.2',
-                                                   new ButtonTemplateBuilder(
-                                                   $Reporter.'ฯ เลือกวันเริ่มต้น', // กำหนดหัวเรื่อง
-                                                   'เลือกวันที่ต้องการตรวจสอบสถิติการรายงาน', // กำหนดรายละเอียด
-                                                   $imageUrl, // กำหนด url รุปภาพ
-                                                   $actionBuilder ));
-                                                   $conn->close();
-                                                   break;
-
-                                  case 'CI3'://สถิติชุด 3
-                                                    $sql4="UPDATE LastChat SET LastGroup='ตข.3' WHERE LastID='1'";
-                                                    $result4 = $conn->query($sql4);
-                                                    $actionBuilder = array(
-                                                    new DatetimePickerTemplateActionBuilder(
-                                                    'เลือกวันเริ่มต้น', // ข้อความแสดงในปุ่ม
-                                                    http_build_query(array(
-                                                    'action'=>'startDate',
-                                                    )), // ข้อมูลที่จะส่งไปใน webhook ผ่าน postback event
-                                                    'date', // date | time | datetime รูปแบบข้อมูลที่จะส่ง ในที่นี้ใช้ datatime
-                                                    date("Y-m-d"), // วันที่ เวลา ค่าเริ่มต้นที่ถูกเลือก
-                                                    date("Y-m-d"), //วันที่ เวลา มากสุดที่เลือกได้
-                                                    date("Y-m-d",strtotime("-3650 day")) //วันที่ เวลา น้อยสุดที่เลือกได้
-                                                    ),
-                                                    );
-                                                    $imageUrl = $webURL.'picture/amic.jpg';
-                                                    $textMessageBuilder = new TemplateMessageBuilder('ตข.3',
-                                                    new ButtonTemplateBuilder(
-                                                    $Reporter.'ฯ เลือกวันเริ่มต้น', // กำหนดหัวเรื่อง
-                                                    'เลือกวันที่ต้องการตรวจสอบสถิติการรายงาน', // กำหนดรายละเอียด
-                                                    $imageUrl, // กำหนด url รุปภาพ
-                                                    $actionBuilder ));
-                                                    $conn->close();
-                                                    break;
-                               case 'CI4'://สถิติ ทกร.
-                                                 $sql4="UPDATE LastChat SET LastGroup='ทกร.' WHERE LastID='1'";
-                                                 $result4 = $conn->query($sql4);
-                                                 $actionBuilder = array(
-                                                 new DatetimePickerTemplateActionBuilder(
-                                                 'เลือกวันเริ่มต้น', // ข้อความแสดงในปุ่ม
-                                                 http_build_query(array(
-                                                 'action'=>'startDate',
-                                                 )), // ข้อมูลที่จะส่งไปใน webhook ผ่าน postback event
-                                                 'date', // date | time | datetime รูปแบบข้อมูลที่จะส่ง ในที่นี้ใช้ datatime
-                                                 date("Y-m-d"), // วันที่ เวลา ค่าเริ่มต้นที่ถูกเลือก
-                                                 date("Y-m-d"), //วันที่ เวลา มากสุดที่เลือกได้
-                                                 date("Y-m-d",strtotime("-3650 day")) //วันที่ เวลา น้อยสุดที่เลือกได้
-                                                 ),
-                                                 );
-                                                 $imageUrl = $webURL.'picture/amic.jpg';
-                                                 $textMessageBuilder = new TemplateMessageBuilder('ทกร.',
-                                                 new ButtonTemplateBuilder(
-                                                 $Reporter.'ฯ เลือกวันเริ่มต้น', // กำหนดหัวเรื่อง
-                                                 'เลือกวันที่ต้องการตรวจสอบสถิติการรายงาน', // กำหนดรายละเอียด
-                                                 $imageUrl, // กำหนด url รุปภาพ
-                                                 $actionBuilder ));
-                                                 $conn->close();
-                                                 break;
-
                                     case 'startDate':
                                                       $paramPostback = $arrayJson['events'][0]['postback']['params']['date'];
                                                       $sql5="UPDATE LastChat SET DateStrat='$paramPostback' WHERE LastID='1'";
