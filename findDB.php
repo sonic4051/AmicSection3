@@ -4,7 +4,13 @@ header('Content-Type: text/html; charset=utf-8');
 require_once('connect.php');
 if(isset($_POST['submit'])) 
 { 
+    $countid = 0;
+	$ContentData="";
+	$FindWord = $_POST['findID'];
+	$sql = "SELECT * FROM news ORDER BY News_id DESC";
+    $result = $conn->query($sql);
     
+	echo $ContentData;
 }
 ?>
 
