@@ -176,10 +176,11 @@ if($Passport=="true") {
                                           //fwrite($objFopen, $strText1);
                                           ##################################################################
                                           $cutstr = mb_strimwidth($ReplyData1, 0,1500, "...", "UTF-8"); //ตัดคำให้เหลือ 1500
-                                          $EditContent = $cutstr."\n (".$LinkNews.")";
+                                          //$EditContent = $cutstr."\n (".$LinkNews.")";
                                           $ReplyData = $EditContent;
                                         } else {
-                                            $ReplyData = $ReplyData1;
+                                            //$ReplyData = $ReplyData1;
+											$ReplyData = $cutstr;
                                         }
                                     
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);
