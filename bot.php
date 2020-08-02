@@ -166,22 +166,22 @@ if($Passport=="true") {
                                          }
                                         $arr_replyData = array();
                                         $ReplyData1 ="                 [ข่าวระหัสที่ ".$Command[1]."]\n----------------------------------------------------\n"."[เรื่อง] :: ".$NewHeader."\n[โดย] :: ".$NewReporter."ฯ".
-                                        "\n[รายงาน] :: ".$Newdate."\n----------------------------------------------------\n - ";//.$NewContent;
+                                        "\n[รายงาน] :: ".$Newdate."\n----------------------------------------------------\n - ".$NewContent;
                                         $countStr = utf8_strlen($ReplyData1);
                                         if ($countStr>1500) {
                                           #################################################################
-                                          $strFileName = "floderfile/".$Command[1].".txt";
-                                          $objFopen = fopen($strFileName, 'w');
-                                          $strText1 = $Command[1];
-                                          fwrite($objFopen, $strText1);
+                                          //$strFileName = "floderfile/".$Command[1].".txt";
+                                          //$objFopen = fopen($strFileName, 'w');
+                                          //$strText1 = $Command[1];
+                                          //fwrite($objFopen, $strText1);
                                           ##################################################################
-                                          $cutstr = mb_strimwidth($ReplyData1, 0,1500, "...", "UTF-8"); //ตัดคำให้เหลือ 1800
+                                          $cutstr = mb_strimwidth($ReplyData1, 0,1500, "...", "UTF-8"); //ตัดคำให้เหลือ 1500
                                           $EditContent = $cutstr."\n (".$LinkNews.")";
                                           $ReplyData = $EditContent;
                                         } else {
                                             $ReplyData = $ReplyData1;
                                         }
-                                        //$cutstr11 = mb_strimwidth($NewContent, 0,1500, "...", "UTF-8");
+                                    
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);
                                         //แสดงรูป
                                         for ($i = 0; $i < $piccount; $i++) {
