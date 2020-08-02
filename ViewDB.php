@@ -17,14 +17,10 @@ if(isset($_POST['submit']))
             $IDReporter = $row["NewsReporter"];
 		}
 	}
-	$countStr = utf8_strlen($NewContent);
-    if ($countStr>=1000) {
-		//$NewContent1=substr($NewContent,0,100);
-	echo $countStr;
-	$NewContent1 = $NewContent;
-	}	
-	echo"หัวข้อข่าว :: ".$NewHeader;
 	
+		$NewContent1=substr($NewContent,0,400);
+		
+	echo"หัวข้อข่าว :: ".$NewHeader."<br>";
 	echo $NewContent1;
 }
 ?>
