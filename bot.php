@@ -46,6 +46,7 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuild
 ################################################################################
 ############################ รับข้อความจากผู้ใช้ ###################################
 ################################################################################
+mb_internal_encoding('utf-8');
 $PostbackData = $arrayJson['events'][0]['postback']['data'];
 $Message = $arrayJson['events'][0]['message']['text'];
 $MessageID = $arrayJson['events'][0]['message']['id'];
