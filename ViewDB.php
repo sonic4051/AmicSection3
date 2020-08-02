@@ -17,12 +17,11 @@ if(isset($_POST['submit']))
             $IDReporter = $row["NewsReporter"];
 		}
 	}
-	if(utf8_strlen($NewContent)>1800)
-	{
-		$NewContent=mb_strimwidth($NewContent, 0,1800, "...more...", "UTF-8");
-	}	
+	
+		$NewContent1=mb_strimwidth($NewContent, 0,100, "...more...", "UTF-8");
+		
 	echo"หัวข้อข่าว :: ".$NewHeader."<br>";
-	echo $NewContent;
+	echo $NewContent1;
 }
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
