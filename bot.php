@@ -375,20 +375,8 @@ if($Passport=="true") {
                                                       'ข่าวสาร', http_build_query(array(
                                                       'action'=>'findNews1',
                                                       ))),
-                                                      new PostbackTemplateActionBuilder(
-                                                      'ผลการซักถาม', http_build_query(array(
-                                                      'action'=>'findNews2',
-                                                      ))),
-                                                      new PostbackTemplateActionBuilder(
-                                                      'ประวัติบุคคล', http_build_query(array(
-                                                      'action'=>'findNews3',
-                                                      ))),
-                                                      new PostbackTemplateActionBuilder(
-                                                      'เฉพาะกรณี', http_build_query(array(
-                                                      'action'=>'findNews4',
-                                                      ))),
                                                       );
-                                                      $imageUrl = $webURL.'picture/amic.jpg';
+                                                      $imageUrl = $web_Storage_URL.'picture/amic.jpg';
                                                       $textMessageBuilder = new TemplateMessageBuilder('ค้นหาข้อมูล',
                                                       new ButtonTemplateBuilder(
                                                       $Reporter.'ฯ ค้นหาข้อมูล', // กำหนดหัวเรื่อง
@@ -399,8 +387,8 @@ if($Passport=="true") {
                                                       break;
 
                                     case 'findNews1'://ค้นหาข่าว
-                                                      //$sql4="UPDATE LastChat SET LastGroup='ค้นหา' WHERE LastID='1'";
-                                                      $sql4="UPDATE LastChat SET LastGroup='ค้นหาข่าวสาร', DateStrat='', DateEnd='' WHERE LastID='1'";
+                                                      //$sql4="UPDATE lastchat SET LastGroup='ค้นหา' WHERE LastID='1'";
+                                                      $sql4="UPDATE lastchat SET LastGroup='ค้นหาข่าวสาร', DateStrat='', DateEnd='' WHERE LastID='1'";
                                                       $result4 = $conn->query($sql4);
                                                       $actionBuilder = array(
                                                       new DatetimePickerTemplateActionBuilder(
@@ -414,7 +402,7 @@ if($Passport=="true") {
                                                       date("Y-m-d",strtotime("-3650 day")) //วันที่ เวลา น้อยสุดที่เลือกได้
                                                       ),
                                                       );
-                                                      $imageUrl = $webURL.'picture/amic.jpg';
+                                                      $imageUrl = $web_Storage_URL.'picture/amic.jpg';
                                                       $textMessageBuilder = new TemplateMessageBuilder('ค้นหาข่าว',
                                                       new ButtonTemplateBuilder(
                                                       $Reporter.'ฯ เลือกวันเริ่มต้น', // กำหนดหัวเรื่อง
@@ -426,7 +414,7 @@ if($Passport=="true") {
 
                                     case 'startDatefindNews1'://ค้นหาข่าว
                                                       $paramPostback = $arrayJson['events'][0]['postback']['params']['date'];
-                                                      $sql5="UPDATE LastChat SET DateStrat='$paramPostback' WHERE LastID='1'";
+                                                      $sql5="UPDATE lastchat SET DateStrat='$paramPostback' WHERE LastID='1'";
                                                       $result5 = $conn->query($sql5);
                                                       $actionBuilder = array(
                                                       new DatetimePickerTemplateActionBuilder(
@@ -440,7 +428,7 @@ if($Passport=="true") {
                                                       date("Y-m-d",strtotime("-3650 day")) //วันที่ เวลา น้อยสุดที่เลือกได้
                                                       ),
                                                       );
-                                                      $imageUrl = $webURL.'picture/amic.jpg';
+                                                      $imageUrl = $web_Storage_URL.'picture/amic.jpg';
                                                       $textMessageBuilder = new TemplateMessageBuilder('ค้นหาข่าว',
                                                       new ButtonTemplateBuilder(
                                                       $Reporter.'ฯ เลือกวันสุดท้าย', // กำหนดหัวเรื่อง
@@ -453,7 +441,7 @@ if($Passport=="true") {
                                     case 'stoptDatefindNews1'://ค้นหาข่าว
                                                       $groupCount = 0;
                                                       $paramPostback = $arrayJson['events'][0]['postback']['params']['date'];
-                                                      $sql5="UPDATE LastChat SET DateEnd='$paramPostback' WHERE LastID='1'";
+                                                      $sql5="UPDATE lastchat SET DateEnd='$paramPostback' WHERE LastID='1'";
                                                       $result5 = $conn->query($sql5);
                                                       if ($result5) {
                                                          $talkToUser = "กรุณาพิมพ์คำว่า ค้นหา จากนั้นวรรคแล้วตามด้วยที่ต้องการค้นหา(มากสุด 3 คำ)\nเช่น \nค้นหา เชียงใหม่\nค้นหา เชียงใหม่ อ.เมือง\nค้นหา เชียงใหม่ อ.เมือง ต.ห้วยแก้ว";
@@ -475,7 +463,7 @@ if($Passport=="true") {
                                                       break;
                                     case 'startDate':
                                                       $paramPostback = $arrayJson['events'][0]['postback']['params']['date'];
-                                                      $sql5="UPDATE LastChat SET DateStrat='$paramPostback' WHERE LastID='1'";
+                                                      $sql5="UPDATE lastchat SET DateStrat='$paramPostback' WHERE LastID='1'";
                                                       $result5 = $conn->query($sql5);
                                                       $actionBuilder = array(
                                                       new DatetimePickerTemplateActionBuilder(
@@ -502,7 +490,7 @@ if($Passport=="true") {
                                  case 'stoptDate'://สถิติชุด
                                                       $groupCount = 0;
                                                       $paramPostback = $arrayJson['events'][0]['postback']['params']['date'];
-                                                      $sql5="UPDATE LastChat SET DateEnd='$paramPostback' WHERE LastID='1'";
+                                                      $sql5="UPDATE lastchat SET DateEnd='$paramPostback' WHERE LastID='1'";
                                                       $result5 = $conn->query($sql5);
                                                       if ($result5) {
                                                         $actionBuilder = array(
