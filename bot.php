@@ -170,22 +170,11 @@ if($Passport=="true") {
                                         "\n[รายงาน] :: ".$Newdate."\n----------------------------------------------------\n - ".$NewContent;
                                         $countStr = mb_strlen($ReplyData1, 'utf-8');
                                         if ($countStr>1500) {
-                                          #################################################################
-                                          //$strFileName = "floderfile/".$Command[1].".txt";
-                                          //$objFopen = fopen($strFileName, 'w');
-                                          //$strText1 = $Command[1];
-                                          //fwrite($objFopen, $strText1);
-                                          ##################################################################
-                                          //$cutstr = mb_strimwidth($ReplyData1, 0,1500, "...", "UTF-8"); //ตัดคำให้เหลือ 1500
-                                          //$EditContent = $cutstr."\n (".$LinkNews.")";
-                                          //$ReplyData = $EditContent;
 										  $cutstr = mb_substr($ReplyData1, 0, 1500,'utf-8');
-										  $ReplyData = $countStr.$cutstr;
+										  $ReplyData = $cutstr;
                                         } else {
-                                            $ReplyData = "limit".$countStr.$ReplyData1;
-											//$ReplyData = $countStr;
+                                            $ReplyData = $ReplyData1;
                                         }
-                                    
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);
                                         //แสดงรูป
                                         for ($i = 0; $i < $piccount; $i++) {
@@ -210,22 +199,22 @@ if($Passport=="true") {
                                     WHERE LastID='1'";
                                     $result2 = $conn->query($sql); //โฟกัสที่คนสั่งงาน
                                     $actionBuilder = array(
-                                    new PostbackTemplateActionBuilder(
-                                    'สถิติการรายงานข่าวสาร', http_build_query(array(
-                                    'action'=>'staticNaws',
-                                    ))),
+                                    //new PostbackTemplateActionBuilder(
+                                    //'สถิติการรายงานข่าวสาร', http_build_query(array(
+                                    //'action'=>'staticNaws',
+                                    //))),
                                     new PostbackTemplateActionBuilder(
                                     'ค้นหา', http_build_query(array(
                                     'action'=>'findNews',
                                     ))),
-                                    new PostbackTemplateActionBuilder(
-                                    'อ่านข่าว', http_build_query(array(
-                                    'action'=>'readNews',
-                                    ))),
-                                    new PostbackTemplateActionBuilder(
-                                    'ข้อมูลเครือข่ายเป้าหมาย', http_build_query(array(
-                                    'action'=>'posernal',
-                                    ))),
+                                    //new PostbackTemplateActionBuilder(
+                                    //'อ่านข่าว', http_build_query(array(
+                                    //'action'=>'readNews',
+                                    //))),
+                                    //new PostbackTemplateActionBuilder(
+                                    //'ข้อมูลเครือข่ายเป้าหมาย', http_build_query(array(
+                                    //'action'=>'posernal',
+                                    //))),
                                     );
                                     $imageUrl = $web_Storage_URL.'picture/amic.jpg';
 									//$imageUrl = 'https://amic-bot-storage.s3-ap-southeast-1.amazonaws.com/picture/amic.jpg';
