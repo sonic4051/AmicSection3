@@ -18,7 +18,7 @@ if(isset($_POST['submit']))
 		}
 	}
 	$countStr = strlen($NewContent);
-	$NewContent1=substr($NewContent,0,400);
+	$NewContent1=substr($NewContent,0,1500);
 	echo $countStr."<br>";	
 	echo"หัวข้อข่าว :: ".$NewHeader."<br>";
 	echo $NewContent1;
