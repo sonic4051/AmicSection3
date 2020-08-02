@@ -182,7 +182,7 @@ if($Passport=="true") {
 										  $cutstr = mb_substr($string, 0, 1500,'utf-8');
 										  $ReplyData = $countStr.$cutstr;
                                         } else {
-                                            $ReplyData = $ReplyData1;
+                                            $ReplyData = "limit".$countStr.$ReplyData1;
 											//$ReplyData = $countStr;
                                         }
                                     
