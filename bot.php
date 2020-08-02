@@ -180,7 +180,8 @@ if($Passport=="true") {
                                           //$ReplyData = $EditContent;
 										  $ReplyData = $countStr;
                                         } else {
-                                            $ReplyData = $ReplyData1;
+                                            //$ReplyData = $ReplyData1;
+											$ReplyData = $countStr;
                                         }
                                     
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);
