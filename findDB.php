@@ -15,9 +15,11 @@ if(isset($_POST['submit']))
             if (strpos($row["NewsContent"],$FindWord)!==false) {
                 $countid = $countid+1;
                 $ContentData=$ContentData.$row["NewsDate"]." [".$row["News_id"]."] => ".$row["NewsHadline"]."\n";
+				echo"<br>";
             }
 		}	
 	}	
+	echo"Found :: ".$countid." News";
 	echo $ContentData;
 }
 ?>
