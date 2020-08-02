@@ -17,7 +17,7 @@ if(isset($_POST['submit']))
             $IDReporter = $row["NewsReporter"];
 		}
 	}
-	$countStr = utf8_strlen($ReplyData1);
+	$countStr = utf8_strlen($NewContent);
     if ($countStr>1000) {
 		$NewContent1=substr($NewContent,0,100);
 	}else $NewContent1=$NewContent;	
