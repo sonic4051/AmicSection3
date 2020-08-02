@@ -6,7 +6,7 @@ if(isset($_POST['submit']))
 	$NewsID = $_POST['NewsID'];
 	$sql = "SELECT * FROM news WHERE News_id = '$NewsID'";
     $result = $conn->query($sql);
-	mb_internal_encoding('utf-8');
+	//mb_internal_encoding('utf-8');
     if ($result->num_rows > 0) 
 	{
         while($row = $result->fetch_assoc()) 
