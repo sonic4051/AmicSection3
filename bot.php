@@ -169,7 +169,7 @@ if($Passport=="true") {
                                         $ReplyData1 ="                 [ข่าวระหัสที่ ".$Command[1]."]\n----------------------------------------------------\n"."[เรื่อง] :: ".$NewHeader."\n[โดย] :: ".$NewReporter."ฯ".
                                         "\n[รายงาน] :: ".$Newdate."\n----------------------------------------------------\n - ".$NewContent;
                                         $countStr = mb_strlen($ReplyData1, 'utf-8');
-                                        if ($countStr>1800) {
+                                        if ($countStr>1500) {
                                           #################################################################
                                           //$strFileName = "floderfile/".$Command[1].".txt";
                                           //$objFopen = fopen($strFileName, 'w');
