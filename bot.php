@@ -181,8 +181,8 @@ if($Passport=="true") {
 										  $cutstr = substr($ReplyData1,0,1000);
 										  $ReplyData = $cutstr;
                                         } else {
-                                            //$ReplyData = $ReplyData1;
-											$ReplyData = $countStr;
+                                            $ReplyData = $ReplyData1;
+											//$ReplyData = $countStr;
                                         }
                                     
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);

@@ -20,10 +20,10 @@ if(isset($_POST['submit']))
 	$countStr = utf8_strlen($NewContent);
     if ($countStr>=1000) {
 		//$NewContent1=substr($NewContent,0,100);
-	echo $countStr."<br>";
+	echo $countStr;
 	$NewContent1 = $NewContent;
 	}	
-	echo"หัวข้อข่าว :: ".$NewHeader."<br>";
+	echo"หัวข้อข่าว :: ".$NewHeader;
 	
 	echo $NewContent1;
 }
