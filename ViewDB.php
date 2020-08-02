@@ -19,10 +19,10 @@ if(isset($_POST['submit']))
 		}
 	}
 	//$countStr = mb_strlen($NewContent, 'utf-8');
-	$NewContent1 = mb_substr($NewContent, 0, 1500,'utf-8');
+	//$NewContent1 = mb_substr($NewContent, 0, 1500,'utf-8');
 	echo $countStr."<br>";	
 	echo"หัวข้อข่าว :: ".$NewHeader."<br>";
-	echo $NewContent1;
+	echo $NewContent;
 }
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
