@@ -18,7 +18,7 @@ if(isset($_POST['submit']))
 		}
 	}
 	
-		$NewContent1=mb_strimwidth($NewContent, 0,100, "...more...", "UTF-8");
+		$NewContent1=substr($NewContent,0,400);
 		
 	echo"หัวข้อข่าว :: ".$NewHeader."<br>";
 	echo $NewContent1;
