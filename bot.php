@@ -202,8 +202,8 @@ if($Passport=="true") {
                                     //'action'=>'staticNaws',
                                     //))),
                                     new PostbackTemplateActionBuilder(
-                                    'ค้นหา', http_build_query(array(
-                                    'action'=>'findNews',
+                                    'ค้นหาข่าว', http_build_query(array(
+                                    'action'=>'findNews1', //ลัดขั้นตอน ไม่ไปที่ findNews เพระาหาข่าวอย่างเดียว
                                     ))),
                                     //new PostbackTemplateActionBuilder(
                                     //'อ่านข่าว', http_build_query(array(
