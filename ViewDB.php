@@ -17,7 +17,7 @@ if(isset($_POST['submit']))
             $IDReporter = $row["NewsReporter"];
 		}
 	}
-	$countStr = utf8_strlen($NewContent);
+	$countStr = strlen($NewContent);
 	$NewContent1=substr($NewContent,0,400);
 	echo $countStr."<br>";	
 	echo"หัวข้อข่าว :: ".$NewHeader."<br>";
