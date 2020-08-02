@@ -1,6 +1,7 @@
 <?php
 
 header('Content-Type: text/html; charset=utf-8');
+mb_internal_encoding('utf-8');
 require_once('connect.php');
 if(isset($_POST['submit'])) 
 { 
