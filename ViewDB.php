@@ -1,8 +1,7 @@
 <?php
-
 header('Content-Type: text/html; charset=utf-8');
-mb_internal_encoding('utf-8');
 require_once('connect.php');
+mb_internal_encoding('utf-8');
 if(isset($_POST['submit'])) 
 { 
 	$NewsID = $_POST['NewsID'];
