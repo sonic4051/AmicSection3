@@ -38,26 +38,31 @@ if(isset($_POST['submit']))
 		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.ชัยพันธุ์' WHERE News_id='$NewsID'";
 		 $result2 = $conn->query($sql2);
 	}
-	 else if($row["NewsReporter"]=='Uc576ffbaf058896279283bcb52211af1') 
-	 {
-		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.วัชร์ชัยนันท์' WHERE News_id='$NewsID'";
-		 $result2 = $conn->query($sql2);
-	}
 	 else if($row["NewsReporter"]=='U973698b9ac474608e23ce7519d2b2621') 
 	 {
 		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.ทองอินทร์' WHERE News_id='$NewsID'";
 		 $result2 = $conn->query($sql2);
 	}
-	 else if($row["NewsReporter"]=='U440d7905ad0c12aad5ec4f923aba0bdc') 
-	 {
-		 $sql2 = "UPDATE news SET NewsReporter = 'ร.ท.สุวิทย์' WHERE News_id='$NewsID'";
-		 $result2 = $conn->query($sql2);
-	}
-	 else if($row["NewsReporter"]=='Ub736246d429f003bf3f0256113745d65') 
+	  else if($row["NewsReporter"]=='Ub736246d429f003bf3f0256113745d65') 
 	 {
 		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.อนุพงษ์​' WHERE News_id='$NewsID'";
 		 $result2 = $conn->query($sql2);
-	} 
+	}
+	else if($row["NewsReporter"]=='Uc576ffbaf058896279283bcb52211af1') 
+	 {
+		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.วัชร์ชัยนันท์​' WHERE News_id='$NewsID'";
+		 $result2 = $conn->query($sql2);
+	}	
+	else if($row["NewsReporter"]=='U6126911eea396446e0919385e74ee6f1') 
+	 {
+		 $sql2 = "UPDATE news SET NewsReporter = 'จ.ส.ต.อธิพันธ์​' WHERE News_id='$NewsID'";
+		 $result2 = $conn->query($sql2);
+	}	
+	else ($row["NewsReporter"]=='U018d37636ec93191f4e6433d710fc844') 
+	 {
+		 $sql2 = "UPDATE news SET NewsReporter = 'ส.อ.ทนงศักดิ์​' WHERE News_id='$NewsID'";
+		 $result2 = $conn->query($sql2);
+	}	
 	}	
 }
 ?>
