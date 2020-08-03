@@ -58,13 +58,13 @@ if(isset($_POST['submit']))
 		 $sql2 = "UPDATE news SET NewsReporter = 'จ.ส.ต.อธิพันธ์​' WHERE News_id='$NewsID'";
 		 $result2 = $conn->query($sql2);
 	}	
-	else ($row["NewsReporter"]=='U018d37636ec93191f4e6433d710fc844') 
+	else if($row["NewsReporter"]=='U018d37636ec93191f4e6433d710fc844') 
 	 {
 		 $sql2 = "UPDATE news SET NewsReporter = 'ส.อ.ทนงศักดิ์​' WHERE News_id='$NewsID'";
 		 $result2 = $conn->query($sql2);
 	}	
 	}	
-}
+    }
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
    กดเพื่อเริ่มอับเดท<br>
