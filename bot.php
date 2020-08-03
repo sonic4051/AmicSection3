@@ -294,7 +294,7 @@ if($Passport=="true") {
                                                       $ReplyData=$ReplyData."-----------------------------------------------------------\n";
                                                       $ReplyData=$ReplyData.$ContentData;
                                                       //$countSR = utf8_strlen($ReplyData);
-													  $countSR = mb_strlen($ReplyData1, 'utf-8');
+													  $countSR = mb_strlen($ReplyData, 'utf-8');
                                                       }
                                                       if ($srWord==1) {
                                                         $LinkNews = $webURL."readnewsheader.php?word1=".$Command[1]."&id=".$countidSR."&strDate=".$strDate."&stpDate=".$stpDate;
@@ -305,13 +305,9 @@ if($Passport=="true") {
                                                       }
                                                       if ($countSR>1800) {
                                                         //$countStr = mb_strlen($ReplyData1, 'utf-8');
-														if ($countStr>1500) {
-														$cutstr = mb_substr($ReplyData1, 0, 1500,'utf-8');
+														$cutstr = mb_substr($ReplyData, 0, 1500,'utf-8');
 														$ReplyData = $cutstr;
-														} else {
-														$ReplyData = $ReplyData1;
-														}
-                                                      }
+														} 
                                                       $conn->close();
                                                       break;
                                     default:
