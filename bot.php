@@ -293,7 +293,8 @@ if($Passport=="true") {
                                                       $ReplyData=$ReplyData."   วันที่          IDข่าว          ชื่อเรื่อง\n";
                                                       $ReplyData=$ReplyData."-----------------------------------------------------------\n";
                                                       $ReplyData=$ReplyData.$ContentData;
-                                                      $countSR = utf8_strlen($ReplyData);
+                                                      //$countSR = utf8_strlen($ReplyData);
+													  $countSR = mb_strlen($ReplyData1, 'utf-8');
                                                       }
                                                       if ($srWord==1) {
                                                         $LinkNews = $webURL."readnewsheader.php?word1=".$Command[1]."&id=".$countidSR."&strDate=".$strDate."&stpDate=".$stpDate;
@@ -303,15 +304,13 @@ if($Passport=="true") {
                                                         $LinkNews = $webURL."readnewsheader.php?word1=".$Command[1]."&word2=".$Command[2]."&word3=".$Command[3]."&id=".$countidSR."&strDate=".$strDate."&stpDate=".$stpDate;
                                                       }
                                                       if ($countSR>1800) {
-                                                        #################################################################
-                                                        $strFileName = "floderfile/".$countidSR.".txt";
-                                                        $objFopen = fopen($strFileName, 'w');
-                                                        $strText1 = $Command[1];
-                                                        fwrite($objFopen, $strText1);
-                                                        #################################################################
-                                                        $cutstr = mb_strimwidth($ReplyData, 0,1800, "...", "UTF-8"); //ตัดคำให้เหลือ 1800
-                                                        $EditContent = $cutstr."\n( ข้อมูลเพิ่มเติม ==> ".$LinkNews." )";
-                                                        $ReplyData = $EditContent;
+                                                        //$countStr = mb_strlen($ReplyData1, 'utf-8');
+														if ($countStr>1500) {
+														$cutstr = mb_substr($ReplyData1, 0, 1500,'utf-8');
+														$ReplyData = $cutstr;
+														} else {
+														$ReplyData = $ReplyData1;
+														}
                                                       }
                                                       $conn->close();
                                                       break;
