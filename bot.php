@@ -306,7 +306,7 @@ if($Passport=="true") {
                                                       if ($countSR>1800) {
                                                         //$countStr = mb_strlen($ReplyData1, 'utf-8');
 														$cutstr = mb_substr($ReplyData, 0, 1500,'utf-8');
-														$ReplyData = $cutstr;
+														$ReplyData = $cutstr."...[การส่งข้อมูลจำกัด โปรดระบุค่าค้นหาให้เจาะจงกว่านี้]";
 														} 
                                                       $conn->close();
                                                       break;
