@@ -112,10 +112,10 @@ if($result->num_rows > 0) {
 if($Passport=="true") {
     switch ($typeMessage) {
       case 'text':
-                  if ($Tags[0]=="ข่าวด่วน") {
+                  if ($Tags[0]=="ข่าวด่วน/ขกท.") {
                        if (isset($Tags[1]) && isset($Tags[2])) {
                           $sql="INSERT INTO news (NewsHadline, NewsContent, NewsDate, NewsTime, NewsType, NewsReporter)
-                          VALUES ('$Tags[1]','$AllContent','$Ndate','$Ntime','$Tags[0]','$UserID')";
+                          VALUES ('$Tags[1]','$AllContent','$Ndate','$Ntime','$Tags[0]','$Reporter')";
                           if ($conn->query($sql) === TRUE) {
                               $ReplyData = "ข่าว [".$Tags[1]."] \nผู้ส่ง ".$Reporter."ฯ \nบันทึกลงฐานข้อมูลเรียบร้อย \n*** สามารถเพิ่มรูปของข่าวได้ 4 รูป (กรุณาส่งทีละรูป)";
                               $textMessageBuilder = new TextMessageBuilder($ReplyData);
@@ -153,18 +153,18 @@ if($Passport=="true") {
                                             $pic[] = $row["NewsPicture2"];
                                             $pic[] = $row["NewsPicture3"];
                                             $pic[] = $row["NewsPicture4"];
-                                            $sql = "SELECT * FROM userid WHERE userlinekey='$IDReporter'";
-                                            $result = $conn->query($sql);
-                                            if($result->num_rows > 0) {
-                                               while($row = $result->fetch_assoc()) {
-                                                 if ($row["userlinekey"]==$IDReporter) {
-                                                    $NewReporter = $row["first_name"];
-                                                 }
-                                               }
-                                            }
+                                            //$sql = "SELECT * FROM userid WHERE userlinekey='$IDReporter'";
+                                            // $result = $conn->query($sql);
+                                            // if($result->num_rows > 0) {
+                                            //   while($row = $result->fetch_assoc()) {
+                                            //     if ($row["userlinekey"]==$IDReporter) {
+                                            //        $NewReporter = $row["first_name"];
+                                            //     }
+                                            //   }
+                                            //}
                                          }
                                         $arr_replyData = array();
-                                        $ReplyData1 ="                 [ข่าวระหัสที่ ".$Command[1]."]\n----------------------------------------------------\n"."[เรื่อง] :: ".$NewHeader."\n[โดย] :: ".$NewReporter."ฯ".
+                                        $ReplyData1 ="                 [ข่าวระหัสที่ ".$Command[1]."]\n----------------------------------------------------\n"."[เรื่อง] :: ".$NewHeader."\n[โดย] :: ".$IDReporter."ฯ".
                                         "\n[รายงาน] :: ".$Newdate."\n----------------------------------------------------\n - ".$NewContent;
                                         $countStr = mb_strlen($ReplyData1, 'utf-8');
                                         if ($countStr>1500) {
