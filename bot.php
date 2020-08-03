@@ -169,9 +169,9 @@ if($Passport=="true") {
                                         $countStr = mb_strlen($ReplyData1, 'utf-8');
                                         if ($countStr>1800) {
 										  $cutstr = mb_substr($ReplyData1, 0, 1500,'utf-8');
-										  $ReplyData = $cutstr;
+										  $ReplyData = $cutstr."...[เนื้อหาข่าวมากไป โปรดตรวจสอบในฐานข้อมูล]";
                                         } else {
-                                            $ReplyData = $ReplyData1."...[เนื้อหาข่าวมากไป โปรดตรวจสอบในฐานข้อมูล]";
+                                            $ReplyData = $ReplyData1;
                                         }
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);
                                         //แสดงรูป
