@@ -18,16 +18,6 @@ if(isset($_POST['submit']))
 		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.อุเทน'  WHERE News_id='$NewsID'";
 		 $result2 = $conn->query($sql2);
 	 }
-	 else if($row["NewsReporter"]='Ua7a7bec0f7f8d3b2c31396674abfee2d') 
-	 {
-		 $sql2 = "UPDATE news SET NewsReporter = 'ร.ท.ทวี' WHERE News_id='$NewsID'";
-		 $result2 = $conn->query($sql2);
-	}
-	 else if($row["NewsReporter"]='U397397f56447399ad60169cb958704d7') 
-	 {
-		 $sql2 = "UPDATEUPDATE news SET NewsReporter = 'จ.ส.อ.ไพรวัลย์' WHERE News_id='$NewsID'";
-		 $result2 = $conn->query($sql2);
-	}
 	 else if($row["NewsReporter"]='U7723a267e3ac3294a99c96db72fdbe48') 
 	 {
 		 $sql2 = "UPDATE		 news SET NewsReporter = 'จ.ส.อ.เกศฎา' WHERE News_id='$NewsID'";
