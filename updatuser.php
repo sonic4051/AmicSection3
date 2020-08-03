@@ -3,16 +3,12 @@ header('Content-Type: text/html; charset=utf-8');
 require_once('connect.php');
 if(isset($_POST['submit'])) 
 {
-	$sql = "SELECT * FROM news";
+	$sql = "SELECT * FROM news WHERE NewsReporter='Ub736246d429f003bf3f0256113745d65'";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) 
 	{
-	 $NewsID = $row["News_id"];
-	 if($row["NewsReporter"]=='Ub736246d429f003bf3f0256113745d65') 
-	 {
-		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.อนุพงษ์​'  WHERE News_id='$NewsID'";
+		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.อนุพงษ์​'  ";
 		 $result2 = $conn->query($sql2);
-	 } 	
 	}	
 }
 ?>
