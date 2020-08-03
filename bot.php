@@ -167,11 +167,11 @@ if($Passport=="true") {
                                         $ReplyData1 ="                 [ข่าวระหัสที่ ".$Command[1]."]\n----------------------------------------------------\n"."[เรื่อง] :: ".$NewHeader."\n[โดย] :: ".$IDReporter."ฯ".
                                         "\n[รายงาน] :: ".$Newdate."\n----------------------------------------------------\n - ".$NewContent;
                                         $countStr = mb_strlen($ReplyData1, 'utf-8');
-                                        if ($countStr>1500) {
+                                        if ($countStr>1800) {
 										  $cutstr = mb_substr($ReplyData1, 0, 1500,'utf-8');
 										  $ReplyData = $cutstr;
                                         } else {
-                                            $ReplyData = $ReplyData1;
+                                            $ReplyData = $ReplyData1."...[เนื้อหาข่าวมากไป โปรดตรวจสอบในฐานข้อมูล]";
                                         }
                                         $arr_replyData[] = new TextMessageBuilder($ReplyData);
                                         //แสดงรูป
