@@ -7,7 +7,7 @@ if(isset($_POST['submit']))
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) 
 	{
-		 $sql2 = "UPDATE news SET NewsReporter = 'ร.อ.​'  ";
+		 $sql2 = "UPDATE news SET NewsReporter = 'ฐานข่าวเดิม.​'  ";
 		 $result2 = $conn->query($sql2);
 	}	
 }
